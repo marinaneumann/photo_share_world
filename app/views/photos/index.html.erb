@@ -1,1 +1,6 @@
 <h1> Photo Share World </h1>
+<p><%= link_to "Add Photo", new_photo_path %>
+
+  <% @photos.each do |photo| %>
+    <%= image_tag(photo.photo.url(:thumb)) %>
+  <% end %>

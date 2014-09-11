@@ -5,12 +5,15 @@ class PhotosController < ApplicationController
 
   def new
     @photo = Photo.new
+    @user = User.find(session[:user_id])
   end
 
   def create
-    @photo = Photo.new(params[:photo])
-    if @photo.save
-      redirect_to photo_path
+    @user = User.find(session[:user_id])
+    @photo = Photo.create(photo_params)
+    foo
+    if @photo.valid?
+      redirect_to photos_path
     else
       render 'new'
     end
@@ -25,4 +28,9 @@ class PhotosController < ApplicationController
     @photo.destroy
   end
 
+private
+
+  def photo_params
+    params.require(:photo).permit(:photo)
+  end
 end
