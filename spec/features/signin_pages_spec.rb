@@ -28,4 +28,13 @@ describe "the login process" do
     click_button 'Sign Up'
     expect(page).to have_content 'Photo'
   end
+
+  it "will not allow a user to sign up" do
+    visit '/signup'
+    fill_in 'Email', with: 'user@email.com'
+    fill_in 'Password', with: 'password'
+    fill_in 'Password confirmation', with: ''
+    click_button 'Sign Up'
+    expect(page).to have_content 'invalid'
+  end
 end
